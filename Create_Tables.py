@@ -2,6 +2,7 @@
 import sqlite3
 from sqlite3 import Error
 
+# Connect to the SQLite3 database
 def create_connection(path):
         connection = None
         try:
@@ -13,6 +14,7 @@ def create_connection(path):
 
 connection = create_connection("C:\\recommendation.sqlite")
 
+# Helper function to run queries
 def execute_query(connection,  query):
         cursor = connection.cursor()
         try:
@@ -21,6 +23,8 @@ def execute_query(connection,  query):
                 print("Query executed successfully")
         except Error as e:
                 print(f"The error '{e}' has occured.")
+                
+# Creating tables
 
 create_courses_table = """
 CREATE TABLE IF NOT EXISTS courses(
@@ -33,6 +37,7 @@ CREATE TABLE IF NOT EXISTS courses(
 """
 
 execute_query(connection, create_courses_table)
+# Check
 print("Course table created")
 
 create_ratings_table = """
@@ -46,7 +51,10 @@ CREATE TABLE IF NOT EXISTS ratings(
 """
 
 execute_query(connection, create_ratings_table)
+# Check
 print("ratings table created")
+
+# Loading data into the created tables
 
 create_courses = """
 INSERT INTO 
@@ -160,6 +168,7 @@ In either case, this would require the R user to work in Python to get his/her w
 """
 
 execute_query(connection, create_courses)
+# Check
 print("Data uploaded to courses table")
 
 create_ratings = """
@@ -1167,6 +1176,6 @@ VALUES
 ('477', '52', '4'),
 ('477', '56', '3');
 """
-
+# Check
 execute_query(connection, create_ratings)
 print("Data loaded to ratings")
